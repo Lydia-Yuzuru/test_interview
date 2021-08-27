@@ -9,7 +9,13 @@ class ShoppingCart:
         self.customer = customer
 
     def add_product(self, product):
-        self.products.append(product)
+        # self.products.append(product)  # product为Product类
+        self.products.extend(product)  # product为List
+
+    def delete_product(self, product):
+        for p in self.products[::-1]:  # 正序删除到只剩一个，倒叙删除全部
+            if p.product_code == product.product_code:
+                self.products.remove(p)
 
     def checkout(self):
         total_price = 0.00

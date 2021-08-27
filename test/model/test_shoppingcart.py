@@ -57,3 +57,34 @@ class ShoppingCartTest(unittest.TestCase):
         order = cart.checkout()
 
         self.assertEqual(6, order.loyalty_points)
+
+    def test_should_add_product(self):
+        new_product = [Product(PRICE, "", PRODUCT)]
+        products = [Product(PRICE, "DIS_10_ABCD", PRODUCT)]
+        cart = ShoppingCart(CUSTOMER, products)
+        cart.add_product(new_product)
+
+        order = cart.checkout()
+
+        self.assertEqual(30, order.loyalty_points)
+        self.assertEqual(190, order.total)
+
+    def test_should_delete_product(self):
+        del_product = Product(PRICE, "", PRODUCT)
+        products = [Product(PRICE, "DIS_10_ABCD", PRODUCT), Product(PRICE, "", PRODUCT),
+                    Product(PRICE, "", PRODUCT)]
+        cart = ShoppingCart(CUSTOMER, products)
+        order = cart.checkout()
+        self.assertEqual(50, order.loyalty_points)
+        self.assertEqual(290, order.total)
+
+        cart.delete_product(del_product)
+
+        order = cart.checkout()
+        self.assertEqual(10, order.loyalty_points)
+        self.assertEqual(90, order.total)
+
+
+if __name__ == '__main__':
+    # verbosity=*：默认是1；设为0，则不输出每一个用例的执行结果；2-输出详细的执行结果
+    unittest.main(verbosity=2)

@@ -15,7 +15,7 @@ def main():
 
     product3 = Product(30.0, "DIS_10_PRODUCT3", "product 3")
 
-    shopping_cart.add_product(product3)
+    shopping_cart.add_product([product3])
 
     print(shopping_cart)
 
