@@ -5,4 +5,3 @@ class Order:
 
     def __str__(self):
         return "Total price: %s \nWill receive %s" % (self.total, self.loyalty_points)
-s

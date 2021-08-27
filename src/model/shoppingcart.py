@@ -28,7 +28,6 @@ class ShoppingCart:
             total_price += product.price - discount
         return Order(int(loyalty_points_earned), total_price)
 
-
     def __str__(self):
         product_list = "".join('%s' % product for product in self.products)
         return "Customer: %s \nBought: \n%s" % (self.customer, product_list)
