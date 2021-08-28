@@ -23,15 +23,20 @@ class ShoppingCart:
         for product in self.products:
             discount = 0.00
             if product.product_code.startswith("DIS_10"):
-                loyalty_points_earned += (product.price / 10)
-                discount = product.price * 0.1
+                loyalty_points_earned += product.count * (product.price / 10)
+                discount = product.count * product.price * 0.1
             elif product.product_code.startswith("DIS_15"):
-                loyalty_points_earned += (product.price / 15)
-                discount = product.price * 0.15
+                loyalty_points_earned += product.count * (product.price / 15)
+                discount = product.count * product.price * 0.15
+            elif product.product_code.startswith("DIS_20"):
+                loyalty_points_earned += product.count * (product.price / 20)
+                discount = product.count * product.price * 0.2
+            elif product.product_code.startswith("BUY_2_GET_1"):
+                discount = (product.count // 3) * product.price
             else:
-                loyalty_points_earned += (product.price / 5)
+                loyalty_points_earned += product.count * (product.price / 5)
                 discount = 0.00
-            total_price += product.price - discount
+            total_price += product.count * product.price - discount
         return Order(int(loyalty_points_earned), total_price)
 
     def __str__(self):

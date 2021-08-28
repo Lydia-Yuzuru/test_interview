@@ -58,6 +58,22 @@ class ShoppingCartTest(unittest.TestCase):
 
         self.assertEqual(6, order.loyalty_points)
 
+    def test_should_calculate_price_with_20_percent_discount(self):
+        products = [Product(PRICE, "DIS_20_ABCD", PRODUCT, 2)]
+        cart = ShoppingCart(CUSTOMER, products)
+
+        order = cart.checkout()
+
+        self.assertEqual(160.00, order.total)
+
+    def test_should_calculate_loyalty_points_with_20_percent_discount(self):
+        products = [Product(PRICE, "DIS_20_ABCD", PRODUCT, 2)]
+        cart = ShoppingCart(CUSTOMER, products)
+
+        order = cart.checkout()
+
+        self.assertEqual(10, order.loyalty_points)
+
     def test_should_add_product(self):
         new_product = [Product(PRICE, "", PRODUCT)]
         products = [Product(PRICE, "DIS_10_ABCD", PRODUCT)]
@@ -83,6 +99,14 @@ class ShoppingCartTest(unittest.TestCase):
         order = cart.checkout()
         self.assertEqual(10, order.loyalty_points)
         self.assertEqual(90, order.total)
+
+    def test_should_calculate_price_with_BUY_2_GET_1(self):
+        products = [Product(PRICE, "BUY_2_GET_1_ABCD", PRODUCT, 3)]
+        cart = ShoppingCart(CUSTOMER, products)
+
+        order = cart.checkout()
+
+        self.assertEqual(200.00, order.total)
 
 
 if __name__ == '__main__':
