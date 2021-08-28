@@ -58,6 +58,16 @@ class ShoppingCartTest(unittest.TestCase):
 
         self.assertEqual(6, order.loyalty_points)
 
+    def test_should_calculate_price_with_BUY_2_GET_1(self):
+        products = [Product(PRICE, "BUY_2_GET_1_ABCD", PRODUCT), Product(PRICE, "BUY_2_GET_1_ABCD", PRODUCT),
+                    Product(PRICE, "BUY_2_GET_1_ABCD", PRODUCT), Product(PRICE, "BUY_2_GET_1_EFGH", PRODUCT),
+                    Product(PRICE, "BUY_2_GET_1_EFGH", PRODUCT)]
+        cart = ShoppingCart(CUSTOMER, products)
+
+        order = cart.checkout()
+
+        self.assertEqual(400, order.total)
+
     def test_should_add_product(self):
         new_product = [Product(PRICE, "", PRODUCT)]
         products = [Product(PRICE, "DIS_10_ABCD", PRODUCT)]
